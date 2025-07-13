@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'Poppins-Regular';
+    src: url('../assets/fonts/Poppins-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Museo Sans Cyrl700';
+    src: url('../assets/fonts/Museo-Sans-Cyrl-700.ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Museo Sans Cyrl500';
+    src: url('../assets/fonts/Museo-Sans-Cyrl-500.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+:root {
+    --font-primary: 'Poppins-Regular';
+    --font-secondary: 'Museo Sans Cyrl700';
+    --font-3: 'Museo Sans Cyrl500';
+    --text-color-primary: #333;
+}
+body {
+    font-family: var(--font-primary), sans-serif;
+    color: var(--text-color-primary);
+}
+.h1, .h2, h3 {
+    font-family: var(--font-secondary), sans-serif;
+    font-weight: var(--c-weight-semibold);
+}
+.h1 {
+    font-size: 3.375rem;
+    line-height: 4.063rem;
+}
+.h2 {
+    font-size: 3rem;
+    line-height: 3.625rem;
+}
+.h3 {
+    font-size: 2.25rem;/*36px*/
+    line-height: 2.688rem;
+}
+.text-size-medium, .text-size-small, .text-size-tiny,
+.text-size-progress-bar, .footer-text-size {
+    font-family: var(--font-3), sans-serif;
+    font-weight: var(--c-weight-normal);
+}
+.text-size-large {
+    font-family: var(--font-secondary), sans-serif;
+    font-weight: var(--c-weight-semibold);
+    font-size: 9.875rem;
+    color: var(--base-color-neutral--white);
+}
+.text-size-medium {
+    font-size: var(--c-size-medium);/*20px*/
+    line-height: 1.5rem;
+}
+.text-size-small {
+    font-size: 1.125rem; /*18px*/
+    line-height: 1.375rem;
+}
+.text-size-tiny {
+    font-size: var(--c-size-small);/*12px*/
+}
+.text-size-progress-bar, .footer-text-size {
+    font-size: 0.813rem;/*13px*/
+}
+.footer-text-size {
+  color: var(--base-color--secondary-2);
+}
+::placeholder {
+    font-family: var(--font-secondary), sans-serif;
+    font-weight: var(--c-weight-semibold);
+    font-size: 1.125rem;
+    color: var(--base-color-system--info-blue);
+}
+.app-button {
+    font-family: var(--font-3), sans-serif;
+    font-weight: var(--c-weight-normal);
+    font-size: 1.063rem;
+    color: var(--base-color-neutral--white);
+    background-color: var(--base-color-system--info-blue);
+    border-radius: 6px;
+    height: 3rem;
+    padding: 0.875rem 2.188rem;/*14 35*/
+    justify-content: center;
+    width: 166px;
+}
+.app-button.lg {
+    width: 267px;
+}
+.app-button:hover {
+    background-color: #5723c9;
+}
+.app-button.next {
+    width: 132px;
+    background-color: transparent;
+    border: 1px solid var(--base-color-system--info-blue);
+    color: var(--base-color-system--info-blue);
+}
+.app-button.backward:hover {
+    background-color: var(--base-color-system--info-blue);
+    color: var(--base-color-neutral--white);
+}
+.has-border-bottom {
+    border-bottom: 1px solid var(--c-border-color--border-gray);
+}
