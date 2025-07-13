@@ -21,6 +21,10 @@ body {
     color: var(--text-color-primary);
     background-color: var(--base-color-neutral--white);
 }
+.hero-grid {
+    padding-top: 11.875rem;
+    padding-bottom: 8.125rem;
+}
 .h1, .h2, h3, .logo-text {
     font-family: var(--font-secondary), sans-serif;
     font-weight: var(--c-weight-semibold);
@@ -70,6 +74,9 @@ body {
 .text-size-progress-bar, .footer-text-size {
     font-size: 0.813rem;/*13px*/
 }
+.text-accent {
+    color: var(--base-color-system--info-blue);
+}
 .footer-text-size {
   color: var(--base-color--secondary-2);
 }
@@ -95,7 +102,7 @@ body {
     width: 267px;
 }
 .app-button:hover {
-    background-color: #5723c9;
+    background-color: #501fbb;
 }
 .app-button.next {
     width: 132px;
