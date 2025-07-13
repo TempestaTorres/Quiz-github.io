@@ -87,7 +87,6 @@ input:invalid:required, textarea:invalid:required {
 }
 /* Components*/
 .container {
-    flex-grow: 1;
     position: relative;
     max-width: calc(var(--c-max-width) + 2rem);
     margin: 0 auto;

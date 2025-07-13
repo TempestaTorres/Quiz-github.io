@@ -5,29 +5,23 @@
     font-style: normal;
 }
 @font-face {
-    font-family: 'Museo Sans Cyrl700';
-    src: url('../assets/fonts/Museo-Sans-Cyrl-700.ttf');
-    font-weight: 700;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Museo Sans Cyrl500';
-    src: url('../assets/fonts/Museo-Sans-Cyrl-500.ttf');
-    font-weight: 500;
+    font-family: 'MuseoSansCyrl';
+    src: url('../assets/fonts/MuseoSansCyrl.otf');
+    font-weight: 400;
     font-style: normal;
 }
 
 :root {
     --font-primary: 'Poppins-Regular';
-    --font-secondary: 'Museo Sans Cyrl700';
-    --font-3: 'Museo Sans Cyrl500';
+    --font-secondary: 'MuseoSansCyrl';
     --text-color-primary: #333;
 }
 body {
     font-family: var(--font-primary), sans-serif;
     color: var(--text-color-primary);
+    background-color: var(--base-color-neutral--white);
 }
-.h1, .h2, h3 {
+.h1, .h2, h3, .logo-text {
     font-family: var(--font-secondary), sans-serif;
     font-weight: var(--c-weight-semibold);
 }
@@ -45,7 +39,7 @@ body {
 }
 .text-size-medium, .text-size-small, .text-size-tiny,
 .text-size-progress-bar, .footer-text-size {
-    font-family: var(--font-3), sans-serif;
+    font-family: var(--font-secondary), sans-serif;
     font-weight: var(--c-weight-normal);
 }
 .text-size-large {
@@ -53,6 +47,14 @@ body {
     font-weight: var(--c-weight-semibold);
     font-size: 9.875rem;
     color: var(--base-color-neutral--white);
+}
+.logo-text {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    color: var(--base-color-system--info-blue);
+}
+.logo-text span {
+    font-weight: var(--c-weight-normal);
 }
 .text-size-medium {
     font-size: var(--c-size-medium);/*20px*/
@@ -78,7 +80,7 @@ body {
     color: var(--base-color-system--info-blue);
 }
 .app-button {
-    font-family: var(--font-3), sans-serif;
+    font-family: var(--font-secondary), sans-serif;
     font-weight: var(--c-weight-normal);
     font-size: 1.063rem;
     color: var(--base-color-neutral--white);
@@ -107,4 +109,10 @@ body {
 }
 .has-border-bottom {
     border-bottom: 1px solid var(--c-border-color--border-gray);
+}
+.logo-img {
+    width: 20px;
+    height: 14px;
+    position: absolute;
+    inset: 0 95% auto;
 }
