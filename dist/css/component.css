@@ -1623,6 +1623,9 @@ input:valid:required, textarea:valid:required {
 .transition-all-500-linear {
     transition: all 0.5s linear;
 }
+.transition-all-300-linear {
+    transition: all 0.3s linear;
+}
 .transition-transform-500 {
     transition-property: transform;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);

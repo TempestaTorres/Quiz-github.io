@@ -4,12 +4,17 @@
 
 .hero-grid {
     padding-top: 11.875rem;
-    /*padding-bottom: 8.125rem;*/
+    padding-bottom: 8.125rem;
 }
 .hero-grid.register {
     place-items: end baseline;
     padding-top: 8.75rem;
     padding-bottom: 8.25rem;
+}
+.hero-grid.select {
+    grid-template-columns: 57% auto;
+    padding-top: 11.25rem;
+    padding-bottom: 14.188rem;
 }
 .grid-img {
     justify-self: end;
