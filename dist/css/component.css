@@ -59,6 +59,17 @@
     --c-section-padding--medium: 8.5rem;
     --c-border-color--border-primary: #1d1d1b;
     --c-border-color--border-gray: #dcdcf3;
+    --color-promise: #afbdcf;
+    --c-color-white: hsl(0, 0%, 100%);
+    --c-color-black: hsl(0, 0%, 4%);
+    --c-color-light: hsl(0, 0%, 96%);
+    --c-color-dark: hsl(0, 0%, 21%);
+    --c-color-primary: hsl(171, 100%, 41%);
+    --c-color-link: hsl(217, 71%, 53%);
+    --c-color-info: hsl(204, 86%, 53%);
+    --c-color-success: hsl(141, 71%, 48%);
+    --c-color-warning: hsl(48, 100%, 67%);
+    --c-color-danger: hsl(348, 100%, 61%);
 }
 small {
     font-size: var(--c-small-font-size);
@@ -78,6 +89,55 @@ a, button {
 input:invalid:required, textarea:invalid:required {
     outline: 0.01rem solid rgb(239 68 68 / 1);
 }
+input:valid:required, textarea:valid:required {
+    outline: 0.01rem solid var(--c-color-success);
+}
+/*======== Input with float label ==========*/
+/*
+<div class="input-wrapper w-320">
+    <input class="input" type="text" required>
+    <label>Your Name</label>
+</div>
+*/
+.input-wrapper {
+    position:relative;
+}
+.input-wrapper label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: var(--c-size-normal);
+    color: var(--color-promise);
+    padding: 0.875rem;
+    pointer-events: none;
+    transition:0.2s ease all;
+}
+.input.has-border {
+    border: 2px solid var(--c-border-color--border-gray);
+}
+.input[type="text"], .input[type="email"], .input[type="tel"], .input[type="password"], .input[type="search"] {
+    --c-input-border-radius: 0.313rem;
+    --c-input-height: 47px;
+    --c-input-color: var(--c-color-black);
+    --c-input-font-size: 0.875rem; /*14px*/
+    --c-input-padding-left: 1.25rem; /*20px*/
+
+    border-radius: var(--c-input-border-radius);
+    height: var(--c-input-height);
+    width:100%;
+    color: var(--c-input-color);
+    font-size: var(--c-input-font-size);
+    padding-left: var(--c-input-padding-left);
+    box-shadow: none;
+}
+.input:focus + label, .input:valid + label{
+    font-size: var(--c-size-small);
+    top: -5px;
+    left:10px;
+    background: var(--c-color-white);
+    padding: 0 5px 0 5px;
+}
+/*===============================================*/
 .label {
     display: block;
     margin: 0.5rem 0;
@@ -85,7 +145,7 @@ input:invalid:required, textarea:invalid:required {
 .block {
     display: block;
 }
-/* Components*/
+/*============= Components =======================*/
 .container {
     position: relative;
     max-width: calc(var(--c-max-width) + 2rem);
@@ -128,7 +188,7 @@ input:invalid:required, textarea:invalid:required {
 .app-header, .app-footer {
     flex-shrink: 0;
 }
-/*Navigation*/
+/*================ Navigation =====================*/
 /*Desktop*/
 .nav-container {
     display: grid;
@@ -224,7 +284,7 @@ input:invalid:required, textarea:invalid:required {
     }
 }
 
-/*Footer*/
+/*============= Footer ========================*/
 .footer {
     padding: var(--c-footer-padding);
 }
@@ -241,7 +301,7 @@ input:invalid:required, textarea:invalid:required {
     background-color: hsl(var(--footer-h), var(--footer-s), var(--footer-background-l));
     color: hsl(var(--footer-h), var(--footer-s), var(--footer-color-l));
 }
-/*Hero*/
+/*================== Hero ======================*/
 .hero {
     --hero-body-padding: 3rem 1.5rem;
     --hero-body-padding-tablet: 3rem 3rem;
@@ -313,7 +373,7 @@ input:invalid:required, textarea:invalid:required {
     flex-shrink: 1;
 }
 
-/*Parallax*/
+/*================ Parallax ======================*/
 .parallax-container {
     --c-parallax-h: 500px;
     position: relative;
@@ -335,10 +395,12 @@ input:invalid:required, textarea:invalid:required {
     min-width: 100%;
     transform: translate3d(0, 0, 0);
 }
+/*=====================================*/
 .valign-container {
     display: flex;
     align-items: center;
 }
+/*============ Loader ==================*/
 .loader {
     content: "";
     display: block;
@@ -363,7 +425,7 @@ input:invalid:required, textarea:invalid:required {
 .frame {
     padding: var(--c-frame-padding);
 }
-/*Card*/
+/*=============== Card ================*/
 .card-body {
     display: flex;
     flex-direction: column;
@@ -371,6 +433,7 @@ input:invalid:required, textarea:invalid:required {
 .card-box-shadow {
     box-shadow: var(--c-box-shadow);
 }
+/*========== Line width ================*/
 .line-length-md {
     max-width: 50ch;
 }
@@ -390,7 +453,7 @@ input:invalid:required, textarea:invalid:required {
     height: 1lh;
     border-right: var(--sp-width) solid var(--sp-border);
 }
-/*Backgrounds*/
+/*=================== Backgrounds =====================*/
 .has-background-white {
     background-color: hsl(0, 0%, 100%);
 }
@@ -1749,50 +1812,51 @@ input:invalid:required, textarea:invalid:required {
     font-size: 7.5rem;
     line-height: 9.75rem;
 }
+/*Text colors*/
 .has-text-white {
-    color: hsl(0, 0%, 100%);
+    color: var(--c-color-white);
 }
 .has-text-black {
-    color: hsl(0, 0%, 4%);
+    color: var(--c-color-black);
 }
 .has-text-light {
-    color: hsl(0, 0%, 96%);
+    color: var(--c-color-light);
 }
 .has-text-dark {
-    color: hsl(0, 0%, 21%);
+    color: var(--c-color-dark);
 }
 .has-text-primary {
-    color: hsl(171, 100%, 41%);
+    color: var(--c-color-primary);
 }
 .has-text-primary-light {
     color: hsl(171, 100%, 96%);
 }
 .has-text-link {
-    color: hsl(217, 71%, 53%);
+    color: var(--c-color-link);
 }
 .has-text-link-light {
     color: hsl(219, 70%, 96%);
 }
 .has-text-info {
-    color: hsl(204, 86%, 53%);
+    color: var(--c-color-info);
 }
 .has-text-info-light {
     color: hsl(206, 70%, 96%);
 }
 .has-text-success {
-    color: hsl(141, 71%, 48%);
+    color: var(--c-color-success);
 }
 .has-text-success-light {
     color: hsl(142, 52%, 96%);
 }
 .has-text-warning {
-    color: hsl(48, 100%, 67%);
+    color: var(--c-color-warning);
 }
 .has-text-warning-light {
     color: hsl(48, 100%, 96%);
 }
 .has-text-danger {
-    color: hsl(348, 100%, 61%);
+    color: var(--c-color-danger);
 }
 .has-text-danger-light {
     color: hsl(347, 90%, 96%);

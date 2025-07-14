@@ -21,10 +21,6 @@ body {
     color: var(--text-color-primary);
     background-color: var(--base-color-neutral--white);
 }
-.hero-grid {
-    padding-top: 11.875rem;
-    padding-bottom: 8.125rem;
-}
 .h1, .h2, h3, .logo-text {
     font-family: var(--font-secondary), sans-serif;
     font-weight: var(--c-weight-semibold);
@@ -80,11 +76,14 @@ body {
 .footer-text-size {
   color: var(--base-color--secondary-2);
 }
-::placeholder {
+.input[type="text"], .input[type="email"] {
+    --c-input-color: var(--base-color-system--info-blue);
     font-family: var(--font-secondary), sans-serif;
     font-weight: var(--c-weight-semibold);
     font-size: 1.125rem;
-    color: var(--base-color-system--info-blue);
+}
+.input[type="text"]:focus, .input[type="email"]:focus {
+    border-left: 5px solid var(--base-color-system--info-blue);
 }
 .app-button {
     font-family: var(--font-secondary), sans-serif;

@@ -1,3 +1,19 @@
 @import "base.css";
 @import "component.css";
 @import "globals.css";
+
+.hero-grid {
+    padding-top: 11.875rem;
+    /*padding-bottom: 8.125rem;*/
+}
+.hero-grid.register {
+    place-items: end baseline;
+    padding-top: 8.75rem;
+    padding-bottom: 8.25rem;
+}
+.grid-img {
+    justify-self: end;
+}
+.register-form-inputs {
+    max-width: 487px;
+}
