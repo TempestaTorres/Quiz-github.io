@@ -91,7 +91,7 @@ function validateForm(callback) {
             callback.call(form);
 
         }
-    };
+    }
     // Form Entry point
     if (inputs) {
 
