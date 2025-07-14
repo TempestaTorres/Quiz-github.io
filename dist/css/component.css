@@ -110,7 +110,7 @@ input:valid:required, textarea:valid:required {
     color: var(--color-promise);
     padding: 0.875rem;
     pointer-events: none;
-    transition:0.2s ease all;
+    transition: 0.2s ease all;
 }
 .input.has-border {
     border: 2px solid var(--c-border-color--border-gray);
