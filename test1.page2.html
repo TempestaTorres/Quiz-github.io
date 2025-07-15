@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 1</title>
+    <link rel="stylesheet" href="./dist/css/app.css">
+</head>
+<body>
+<div class="app-container">
+    <!--Header-->
+    <header class="py-40 has-border-bottom">
+        <div class="container">
+            <div class="valign-container">
+                <!--Logo-->
+                <a class="logo relative" href="#">
+                    <div class="logo-text">Айтилогия<span>Quiz</span></div>
+                    <div class="logo-img">
+                        <img src="./dist/assets/img/Hat-icon.png" alt="" loading="lazy">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="test-caption pt-20 test-name-text-size">Тест №1. “JavaScript: Начальный уровень”</div>
+            <!--Progress Bar-->
+            <div class="test-progress-bar-wrapper pt-60 pb-80">
+                <div class="test-progress-bar flex px-16">
+                    <div class="progress-bar-item flex items-center is-active">
+                        <div class="progress-bar-circle rounded-full"></div>
+                        <div class="progress-bar-line"></div>
+                    </div>
+                    <div class="progress-bar-item flex items-center is-active">
+                        <div class="progress-bar-circle rounded-full"></div>
+                        <div class="progress-bar-line"></div>
+                    </div>
+                    <div class="progress-bar-item flex items-center is-next">
+                        <div class="progress-bar-circle rounded-full"></div>
+                        <div class="progress-bar-line"></div>
+                    </div>
+                    <div class="progress-bar-item flex items-center">
+                        <div class="progress-bar-circle rounded-full"></div>
+                        <div class="progress-bar-line"></div>
+                    </div>
+                    <div class="progress-bar-item flex items-center">
+                        <div class="progress-bar-circle rounded-full"></div>
+                    </div>
+                </div>
+                <div class="test-progress-bar-footer flex mt-10">
+                    <div class="text-size-progress-bar">Вопрос 1</div>
+                    <div class="text-size-progress-bar">Вопрос 2</div>
+                    <div class="text-size-progress-bar">Вопрос 3</div>
+                    <div class="text-size-progress-bar">Вопрос 4</div>
+                    <div class="text-size-progress-bar">Вопрос 5</div>
+                </div>
+            </div>
+            <!--Question-->
+            <section class="question">
+                <div class="question-title pb-40">
+                   <h3 class="h3"><span class="text-accent">Вопрос 2: </span>Тут должен быть текст вопроса?</h3>
+                </div>
+                <!--Answers-->
+                <div class="answers space-y-20 w-md-20">
+                    <!--Option-->
+                    <label class="radio-button-container text-size-medium">Вариант ответа 1
+                        <input class="radio-button-input" type="radio" id="answer-1" name="radio" value="1" checked>
+                        <span class="radio-button-checkmark"></span>
+                    </label>
+                    <!--Option-->
+                    <label class="radio-button-container text-size-medium">Вариант ответа 2
+                        <input class="radio-button-input" type="radio" id="answer-2" name="radio" value="2">
+                        <span class="radio-button-checkmark"></span>
+                    </label>
+                    <!--Option-->
+                    <label class="radio-button-container text-size-medium">Вариант ответа 3
+                        <input class="radio-button-input" type="radio" id="answer-3" name="radio" value="3">
+                        <span class="radio-button-checkmark"></span>
+                    </label>
+                    <!--Option-->
+                    <label class="radio-button-container text-size-medium">Вариант ответа 4
+                        <input class="radio-button-input" type="radio" id="answer-4" name="radio" value="4">
+                        <span class="radio-button-checkmark"></span>
+                    </label>
+                </div>
+            </section>
+            <!--Pagination-->
+            <section class="pagination pb-44">
+                <div class="valign-container space-between">
+                    <button class="app-button next" data-node-type="button-prev">Назад</button>
+
+                    <div class="timer valign-container">
+                        <span class="text-size-ssmall text-accent">Осталось времени:</span>
+                        <div class="timer-clock relative">
+                            <img class="svg" src="./dist/assets/img/Time.svg" alt="">
+                            <div class="timer-counter">49</div>
+                        </div>
+                    </div>
+
+                    <button class="app-button next" data-node-type="button-next">Дальше</button>
+                </div>
+                <!--Omit question-->
+                <div class="flex justify-end mt-10">
+                    <a class="omit-question" href="#">Пропустить вопрос
+                        <img class="svg transition-all-200-linear" src="./dist/assets/img/right-arrow.svg" alt="">
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Footer-->
+    <footer class="footer">
+        <div class="flex-row-container">
+            <p class="footer-text-size">«АйтилогияQuiz» © Все права защищены / 2022</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
