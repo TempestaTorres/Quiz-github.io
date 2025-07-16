@@ -500,6 +500,9 @@ input:valid:required, textarea:valid:required {
 .line-length-ssm {
     max-width: 35ch;
 }
+.line-length-s {
+    max-width: 20ch;
+}
 
 /*span*/
 .separator-v {
@@ -1359,6 +1362,9 @@ input:valid:required, textarea:valid:required {
 .pt-130 {
     padding-top: 8.125rem;
 }
+.pt-140 {
+    padding-top: 8.75rem;
+}
 .pt-160 {
     padding-top: 10rem;
 }
@@ -1397,9 +1403,11 @@ input:valid:required, textarea:valid:required {
 .pb-80 {
     padding-bottom: 5rem;
 }
-/* 88px */
 .pb-88 {
     padding-bottom: 5.5rem;
+}
+.pb-90 {
+    padding-bottom: 5.625rem;
 }
 .pb-108 {
     padding-bottom: 6.75rem;

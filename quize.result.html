@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your result</title>
+    <link rel="stylesheet" href="./dist/css/app.css">
+</head>
+<body>
+    <div class="app-container">
+        <!--Header-->
+        <header class="py-40 has-border-bottom">
+            <div class="container">
+                <div class="valign-container">
+                    <!--Logo-->
+                    <a class="logo relative" href="#">
+                        <div class="logo-text">Айтилогия<span>Quiz</span></div>
+                        <div class="logo-img">
+                            <img src="./dist/assets/img/Hat-icon.png" alt="" loading="lazy">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="container min-h-screen">
+                <section class="test-result pt-140 pb-90 flex-column-container">
+                    <h1 class="h1 text-center line-length-s">Ура! Ты прошёл тест! <span class="text-accent">Твой результат:</span></h1>
+                    <!--Main Background-->
+                    <div class="result-bg-img"></div>
+                    <!--Result-->
+                    <div class="tests-result-wrapper flex-column-container">
+                        <div class="result-display flex-row-container text-size-large">
+                            <div class="user-answers-number">4</div><div>/</div><div class="total-questions-number">5</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <!--Footer-->
+        <footer class="footer">
+            <div class="flex-row-container">
+                <p class="footer-text-size">«АйтилогияQuiz» © Все права защищены / 2022</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
