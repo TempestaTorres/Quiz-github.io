@@ -2,11 +2,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     'use strict';
 
-    function formValidate(e) {
+    function formValidate(user) {
 
-        alert('Valid');
+        this.reset();
+
+        location.href = "select.html?firstname=" + user.firstname + "&lastname=" + user.lastname + "&email=" + user.email;
+
     }
 
     // Entry point
-    validateForm(formValidate);
+    (function () {
+
+        validateForm(formValidate);
+
+
+    })();
+
 });

@@ -88,7 +88,29 @@ function validateForm(callback) {
 
         if (form.checkValidity() && valid) {
 
-            callback.call(form);
+            let user = {
+                firstname: "",
+                lastname: "",
+                email: "",
+            }
+
+            for (let i = 0; i < inputs.length; i++) {
+                const input = inputs[i];
+
+                if (input.name === 'firstname') {
+                    user.firstname = input.value.trim();
+                }
+                if (input.name === 'lastname') {
+                    user.lastname = input.value.trim();
+                }
+                if (input.type === 'email') {
+                    user.email = input.value.trim();
+                }
+
+            }
+
+
+            callback.call(form, user);
 
         }
     }
