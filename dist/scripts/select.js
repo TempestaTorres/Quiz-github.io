@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let dataId = e.target.parentElement.dataset.nodeData;
 
-            location.href = `test${dataId}.html` + location.search + "&id=" + dataId;
+            location.href = "test.html" + location.search + "&id=" + dataId;
 
             e.stopPropagation();
         }
