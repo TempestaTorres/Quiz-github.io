@@ -21,6 +21,9 @@ body {
     color: var(--text-color-primary);
     background-color: var(--base-color-neutral--white);
 }
+.text-primary {
+    color: var(--text-color-primary);
+}
 .h1, .h2, h3, .logo-text {
     font-family: var(--font-secondary), sans-serif;
     font-weight: var(--c-weight-semibold);
@@ -112,6 +115,7 @@ body {
     background-color: transparent;
     border: 1px solid var(--base-color-system--info-blue);
     color: var(--base-color-system--info-blue);
+    padding-inline: 0;
 }
 .app-button.next:hover {
     background-color: var(--base-color-system--info-blue);
@@ -206,4 +210,15 @@ body {
     height: 1.25rem;
     border: 2px solid var(--base-color-system--info-blue);
     margin-right: 13px;
+}
+.snackbar {
+    width: 132px;
+    border-radius: 6px;
+}
+.snackbar.snackbar-question {
+    width: 100%;
+    background-color: #93cc27;
+}
+.snackbar.snackbar-timeout {
+    width: 100%;
 }

@@ -27,12 +27,15 @@
     /*padding-bottom: 200px;*/
     min-height: 60vh;
 }
+.options-wrapper {
+    min-height: 300px;
+}
 .timer span {
     padding-right: 12px;
 }
 .timer-counter {
     position: absolute;
-    inset: 32% 32% auto;
+    inset: 36% 38% auto;
     font-size: 9px;
     line-height: 1;
 }

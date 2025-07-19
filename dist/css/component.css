@@ -200,6 +200,29 @@ input:valid:required, textarea:valid:required {
     background: white;
 }
 
+/*================ Snackbar ========================*/
+/* <div class="snackbar">Some text...</div> */
+.snackbar {
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    background-color: var(--c-color-dark);
+    color: var(--c-color-white);
+    font-size: var(--c-size-small);
+    font-weight: var(--c-weight-normal);
+    text-align: center;
+    border-radius: 2px;
+    padding: 1rem;
+    z-index: 1;
+    transition: all .5s ease;
+    opacity: 0;
+    transform: translateY(50%);
+}
+.snackbar.is-active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
 /*==================================================*/
 .label {
     display: block;
@@ -861,8 +884,14 @@ input:valid:required, textarea:valid:required {
     margin-bottom: calc(3rem * var(--space-y-reverse));
 }
 /* Margins */
-.ml-2 {
+.ml-8 {
     margin-left: .5rem;
+}
+.ml-10 {
+    margin-left: 0.625rem;
+}
+.ml-16 {
+    margin-left: 1rem;
 }
 .mx-auto {
     margin-left: auto;
