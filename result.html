@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your result</title>
     <link rel="stylesheet" href="./dist/css/app.css">
+    <script src="./dist/scripts/result.js"></script>
 </head>
 <body>
     <div class="app-container">
+        <span class="sr-only">Alice, we all mad here</span>
         <!--Header-->
         <header class="py-40 has-border-bottom">
             <div class="container">
@@ -22,7 +24,7 @@
                 </div>
             </div>
         </header>
-        <main>
+        <main class="overflow-hidden relative">
             <div class="container min-h-screen">
                 <section class="test-result pt-140 pb-90 flex-column-container">
                     <h1 class="h1 text-center line-length-s">Ура! Ты прошёл тест! <span class="text-accent">Твой результат:</span></h1>
@@ -31,10 +33,28 @@
                     <!--Result-->
                     <div class="tests-result-wrapper flex-column-container">
                         <div class="result-display flex-row-container text-size-large">
-                            <div class="user-answers-number">4</div><div>/</div><div class="total-questions-number">5</div>
+                            <div class="user-answers-number"></div>
                         </div>
                     </div>
                 </section>
+                <!--Pagination-->
+                <div class="flex space-between">
+                    <button class="back-to-selection flex items-center">
+                        <img class="svg transition-all-200-linear" src="./dist/assets/img/chevron-left.svg" alt="">
+                        Вернуться к списку тестов
+                    </button>
+                    <button class="view-answers omit-question flex items-center">Просмотреть правильные ответы
+                        <img class="svg transition-all-200-linear" src="./dist/assets/img/right-arrow.svg" alt="">
+                    </button>
+                </div>
+            </div>
+            <span class="sr-only">MAD JUN GHOST</span>
+            <div class="ghost">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </main>
         <!--Footer-->

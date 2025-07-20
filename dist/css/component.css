@@ -1450,6 +1450,9 @@ input:valid:required, textarea:valid:required {
 .pb-55 {
     padding-bottom: 3.438rem;
 }
+.pb-60 {
+    padding-bottom: 3.75rem;
+}
 .pb-64 {
     padding-bottom: 4rem;
 }
@@ -1464,6 +1467,9 @@ input:valid:required, textarea:valid:required {
 }
 .pb-90 {
     padding-bottom: 5.625rem;
+}
+.pb-100 {
+    padding-bottom: 6.25rem;
 }
 .pb-108 {
     padding-bottom: 6.75rem;
@@ -2123,6 +2129,75 @@ input:valid:required, textarea:valid:required {
 }
 .w-prev-button div:nth-child(2) {
     transform: rotate(45deg);
+}
+/*============ Ghost =================*/
+/*
+ <div class="ghost">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+*/
+.ghost {
+    width: 8vmin;
+    height: 12vmin;
+    background-color: var(--c-black-invert);
+    background-image: radial-gradient(ellipse at 35% 40%, var(--c-color-dark) 8%, transparent 0%),
+    radial-gradient(ellipse at 65% 40%, var(--c-color-dark) 8%, transparent 0%),
+    radial-gradient(ellipse at 50% 60%, var(--c-color-dark) 8%, transparent 0%);
+    border-radius: 100% / 70% 70% 0 0;
+    transform: translate3d(90em, -50em, 0) rotateZ(-90deg);
+    position: relative;
+    opacity: 0.9;
+    mix-blend-mode: exclusion;
+    z-index: 2;
+    animation: ghostMove 6s ease-out infinite;
+}
+@keyframes ghostMove {
+    0% {
+        transform: translate3d(90em, -20em, 0) rotateZ(-90deg);
+    }
+    100% {
+        transform: translate3d(-20em, -20em, 0) rotateZ(-90deg);
+    }
+}
+.ghost div {
+    position: absolute;
+    width: 20%;
+    background-color: var(--c-black-invert);
+}
+.ghost div:nth-of-type(1) {
+    height: 7vmin;
+    left: 0;
+    bottom: -6vmin;
+    border-radius: 100% / 0% 0% 50% 50%;
+}
+.ghost div:nth-of-type(2),
+.ghost div:nth-of-type(4) {
+    height: 4vmin;
+    left: 20%;
+    bottom: -3vmin;
+    border-radius: 100% / 50% 50% 0% 0%;
+    background-color: transparent;
+}
+.ghost div:nth-of-type(3) {
+    height: 4vmin;
+    left: 40%;
+    bottom: -3.95vmin;
+    border-radius: 100% / 0% 0% 60% 60%;
+    background-color: var(--c-black-invert);
+}
+.ghost div:nth-of-type(4) {
+    left: 60%;
+}
+.ghost div:nth-of-type(5) {
+    height: 3vmin;
+    left: 80%;
+    bottom: -2.9vmin;
+    border-radius: 100% / 0% 0% 70% 70%;
+    background-color: var(--c-black-invert);
 }
 
 @keyframes spinAround {

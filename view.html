@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Answers</title>
+    <link rel="stylesheet" href="./dist/css/app.css">
+    <script src="./dist/scripts/httprequest.js"></script>
+    <script src="./dist/scripts/loadanswers.js"></script>
+    <script src="./dist/scripts/view.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <span class="sr-only">Alice, we all mad here</span>
+        <!--Header-->
+        <header class="py-40 has-border-bottom">
+            <div class="container">
+                <div class="valign-container">
+                    <!--Logo-->
+                    <a class="logo relative" href="#">
+                        <div class="logo-text">Айтилогия<span>Quiz</span></div>
+                        <div class="logo-img">
+                            <img src="./dist/assets/img/Hat-icon.png" alt="" loading="lazy">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main class="min-h-screen">
+            <div class="container">
+                <!--Caption-->
+                <div class="view-result-caption valign-container gap-16 pt-20 pb-60">
+                    <div class="test-name-text-size">Результат прохождения теста</div>
+                    <img class="svg" src="./dist/assets/img/right-arrow-thing.svg" alt="" loading="lazy">
+                    <div class="view-test-name text-size-medium text-accent"></div>
+                </div>
+                <!--Main Title-->
+                <section class="section-view-main-title">
+                    <h1 class="h1 text-accent">Правильные ответы <span class="text-primary">к тесту</span></h1>
+                    <div class="label">
+                        <span class="text-size-medium">Тест выполнил: </span><span class="mad-jun-user-info text-accent font-600"></span>
+                    </div>
+                </section>
+                <!--Answers-->
+                <section class="section-answers py-60">
+                    <div class="answers-wrapper grid gap-60">
+                        <!--Answer Item-->
+                    </div>
+                </section>
+                <!--Pagination-->
+                <section class="pagination valign-container justify-end pb-20">
+                    <button class="back-to-result omit-question flex items-center">Обратно к моему результату теста
+                        <img class="svg transition-all-200-linear" src="./dist/assets/img/right-arrow.svg" alt="">
+                    </button>
+                </section>
+            </div>
+        </main>
+        <!--Footer-->
+        <footer class="footer">
+            <div class="flex-row-container">
+                <p class="footer-text-size">«АйтилогияQuiz» © Все права защищены / 2022</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

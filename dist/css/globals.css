@@ -103,12 +103,14 @@ body {
     padding: 0.875rem 2.188rem;/*14 35*/
     justify-content: center;
     width: 166px;
+    transition: all .3s ease;
 }
 .app-button.lg {
     width: 267px;
 }
 .app-button:hover {
     background-color: #501fbb;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.9);
 }
 .app-button.next {
     width: 132px;
@@ -121,7 +123,7 @@ body {
     background-color: var(--base-color-system--info-blue);
     color: var(--base-color-neutral--white);
 }
-.omit-question {
+.omit-question, .back-to-selection {
     font-family: var(--font-secondary), sans-serif;
     font-weight: var(--c-weight-normal);
     font-size: 1.063rem; /*17px*/
@@ -134,7 +136,15 @@ body {
     color: #501fbb;
 
     & img {
-        padding-left: 16px;
+        padding-left: 1rem;
+    }
+}
+
+.back-to-selection:hover {
+    color: #501fbb;
+
+    & img {
+        padding-right: 5px;
     }
 }
 .has-border-bottom {

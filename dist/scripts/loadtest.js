@@ -170,22 +170,28 @@ function testDeployPartyProcess() {
             results: userResult,
         });
 
-        makeHttpPostRequest(`https://testologia.ru/pass-quiz?id=${test.id}`, body, processPostRequest)
+        function processPostRequest() {
 
-    }
+            if (this.readyState === 4 && this.status === 200) {
 
-    function processPostRequest() {
+                let response = JSON.parse(this.responseText);
+                // time to party!!!
+                location.href = `result.html?id=${test.id}` + "&score=" + response.score + "&total=" + response.total;
+                sessionStorage.setItem("madJunUser", JSON.stringify({
+                    name: firstname,
+                    lastName: lastname,
+                    email: email,
+                    results: userResult,
+                }));
 
-        if (this.readyState === 4 && this.status === 200) {
-
-            let response = JSON.parse(this.responseText);
-            // time to party!!!
-            location.href = "result.html?score=" + response.score + "&total=" + response.total;
-
+            }
+            else {
+                location.href = "index.html";
+            }
         }
-        else {
-            location.href = "index.html";
-        }
+
+        makeHttpPostRequest(`https://testologia.ru/pass-quiz?id=${test.id}`, body, processPostRequest);
+
     }
 
     timer.timerId = setInterval(() => {
