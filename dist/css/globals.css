@@ -103,15 +103,12 @@ body {
     padding: 0.875rem 2.188rem;/*14 35*/
     justify-content: center;
     width: 166px;
-    transition: all .3s ease;
+    /*transition: all .2s ease;*/
 }
 .app-button.lg {
     width: 267px;
 }
-.app-button:hover {
-    background-color: #501fbb;
-    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.9);
-}
+
 .app-button.next {
     width: 132px;
     background-color: transparent;
@@ -231,4 +228,18 @@ body {
 }
 .snackbar.snackbar-timeout {
     width: 100%;
+}
+.left-boxy-button.blue {
+    --lbb-bg-point-x: #6933dc;
+    --lbb-bg-point-y: #422288;
+
+    font-family: var(--font-secondary), sans-serif;
+    font-weight: var(--c-weight-normal);
+    font-size: 1.063rem;
+    color: var(--base-color-neutral--white);
+    border-radius: 6px;
+    width: 156px;
+}
+.left-boxy-button.blue.lg {
+    width: 257px;
 }

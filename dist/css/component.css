@@ -1888,10 +1888,7 @@ input:valid:required, textarea:valid:required {
 .font-600 {
     font-weight: 600;
 }
-.h-xl {
-    font-size: 3.75rem;
-    line-height: 1;
-}
+
 /* 12px */
 .text-12 {
     font-size: .75rem;
@@ -2172,21 +2169,21 @@ input:valid:required, textarea:valid:required {
     height: 7vmin;
     left: 0;
     bottom: -6vmin;
-    border-radius: 100% / 0% 0% 50% 50%;
+    border-radius: 100% / 0 0 50% 50%;
 }
 .ghost div:nth-of-type(2),
 .ghost div:nth-of-type(4) {
     height: 4vmin;
     left: 20%;
     bottom: -3vmin;
-    border-radius: 100% / 50% 50% 0% 0%;
+    border-radius: 100% / 50% 50% 0 0;
     background-color: transparent;
 }
 .ghost div:nth-of-type(3) {
     height: 4vmin;
     left: 40%;
     bottom: -3.95vmin;
-    border-radius: 100% / 0% 0% 60% 60%;
+    border-radius: 100% / 0 0 60% 60%;
     background-color: var(--c-black-invert);
 }
 .ghost div:nth-of-type(4) {
@@ -2196,10 +2193,155 @@ input:valid:required, textarea:valid:required {
     height: 3vmin;
     left: 80%;
     bottom: -2.9vmin;
-    border-radius: 100% / 0% 0% 70% 70%;
+    border-radius: 100% / 0 0 70% 70%;
     background-color: var(--c-black-invert);
 }
+/*================ Boxy Button ===============*/
+.boxy-button {
+    --bb-top-color: #ccc;
+    --bb-bottom-color: #999;
+    --bb-right-color: #ddd;
 
+    transition:
+            box-shadow 0.3s,
+            transform 0.25s;
+    box-shadow:
+            1px 0   0 var(--bb-right-color),
+            1px 1px 0 var(--bb-bottom-color),
+            2px 1px 0 var(--bb-right-color),
+            2px 2px 0 var(--bb-bottom-color),
+            3px 2px 0 var(--bb-right-color),
+            3px 3px 0 var(--bb-bottom-color),
+            4px 3px 0 var(--bb-right-color),
+            4px 4px 0 var(--bb-bottom-color),
+            5px 4px 0 var(--bb-right-color),
+            5px 5px 0 var(--bb-bottom-color),
+            6px 5px 0 var(--bb-right-color),
+            6px 6px 0 var(--bb-bottom-color),
+            /*7px 6px 0 var(--right-color),*/
+            /*7px 7px 0 var(--bottom-color),*/
+            /*8px 7px 0 var(--right-color),*/
+            /*8px 8px 0 var(--bottom-color),*/
+
+            -5px 20px 40px -8px #999;
+    &:focus,
+    &:hover {
+        outline: 0;
+        box-shadow: 1px 0 0 var(--bb-right-color),
+        1px 1px 0 var(--bb-bottom-color),
+        2px 1px 0 var(--bb-right-color),
+        2px 2px 0 var(--bb-bottom-color),
+        3px 2px 0 var(--bb-right-color),
+        3px 3px 0 var(--bb-bottom-color),
+        4px 3px 0 var(--bb-right-color),
+        4px 4px 0 var(--bb-bottom-color),
+        -5px 5px 12px -8px #999;
+
+        transform: translate(3px, 3px);
+    }
+    &:active {
+        outline: 0;
+        box-shadow:
+                1px 0   0 var(--bb-right-color),
+                1px 1px 0 var(--bb-bottom-color);
+
+        transform: translate(5px, 5px);
+    }
+}
+.left-boxy-button {
+    color: white;
+    padding: 16px 50px 16px 10px;
+    text-shadow: -2px 2px 0 rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    margin: 10px;
+    transition: all 0.2s linear;
+    transform: translateZ(0);
+}
+.left-boxy-button.blue {
+    --lbb-bg-point-x: #a2d3e9;
+    --lbb-bg-point-y: #7abedf;
+    --lbb-shadow-color-1: #6fadcb;
+    --lbb-shadow-color-2: #54809d;
+
+    background: linear-gradient(to bottom, var(--lbb-bg-point-x), var(--lbb-bg-point-y));
+    box-shadow: -1px 0 1px var(--lbb-shadow-color-1), 0 1px 1px var(--lbb-shadow-color-2), -2px 1px 1px var(--lbb-shadow-color-1),
+    -1px 2px 1px var(--lbb-shadow-color-2), -3px 2px 1px var(--lbb-shadow-color-1),
+    -2px 3px 1px var(--lbb-shadow-color-2), -4px 3px 1px var(--lbb-shadow-color-1),
+    -3px 4px 1px var(--lbb-shadow-color-2), -5px 4px 1px var(--lbb-shadow-color-1),
+    -4px 5px 1px var(--lbb-shadow-color-2), -6px 5px 1px var(--lbb-shadow-color-1),
+    -6px 7px 0 rgba(0, 0, 0, 0.05),
+    -5px 8px 0 rgba(0, 0, 0, 0.05),
+    -3px 9px 0 rgba(0, 0, 0, 0.04),
+    -2px 10px 0 rgba(0, 0, 0, 0.04),
+    -1px 11px 0 rgba(0, 0, 0, 0.03), 0 12px 0 rgba(0, 0, 0, 0.03),
+    1px 13px 0 rgba(0, 0, 0, 0.02), 2px 14px 0 rgba(0, 0, 0, 0.02),
+    3px 15px 0 rgba(0, 0, 0, 0.01), 4px 16px 0 rgba(0, 0, 0, 0.01),
+    5px 17px 0 rgba(0, 0, 0, 0.01), 6px 18px 0 rgba(0, 0, 0, 0.01),
+    inset 0 4px 5px -2px rgba(255, 255, 255, 0.5), inset 0 1px 0 0 rgba(0, 0, 0, 0.3);
+}
+.left-boxy-button.yellow {
+    --lby-bg-point-x: #f2d851;
+    --lby-bg-point-y: #ecc92b;
+    --lby-shadow-color-1: #d9b826;
+    --lby-shadow-color-2: #b1961d;
+
+    background: linear-gradient(to bottom, var(--lby-bg-point-x), var(--lby-bg-point-y));
+    color: black;
+    text-shadow: -2px 2px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: -1px 0 1px var(--lby-shadow-color-1), 0 1px 1px var(--lby-shadow-color-2), -2px 1px 1px var(--lby-shadow-color-1),
+    -1px 2px 1px var(--lby-shadow-color-2), -3px 2px 1px var(--lby-shadow-color-1), -2px 3px 1px var(--lby-shadow-color-2),
+    -4px 3px 1px var(--lby-shadow-color-1), -3px 4px 1px var(--lby-shadow-color-2), -5px 4px 1px var(--lby-shadow-color-1),
+    -4px 5px 1px var(--lby-shadow-color-2), -6px 5px 1px var(--lby-shadow-color-1), -6px 7px 0 rgba(0, 0, 0, 0.05),
+    -5px 8px 0 rgba(0, 0, 0, 0.05), -3px 9px 0 rgba(0, 0, 0, 0.04),
+    -2px 10px 0 rgba(0, 0, 0, 0.04), -1px 11px 0 rgba(0, 0, 0, 0.03),
+    0 12px 0 rgba(0, 0, 0, 0.03), 1px 13px 0 rgba(0, 0, 0, 0.02),
+    2px 14px 0 rgba(0, 0, 0, 0.02), 3px 15px 0 rgba(0, 0, 0, 0.01),
+    4px 16px 0 rgba(0, 0, 0, 0.01), 5px 17px 0 rgba(0, 0, 0, 0.01),
+    6px 18px 0 rgba(0, 0, 0, 0.01), inset 0 4px 5px -2px rgba(255, 255, 255, 0.5),
+    inset 0 1px 0 0 rgba(0, 0, 0, 0.3);
+}
+.left-boxy-button.yellow::after, .left-boxy-button.yellow::before {
+    background: black;
+}
+.left-boxy-button.yellow::after {
+    filter: drop-shadow(-2px 0 0 rgba(255, 255, 255, 0.4));
+}
+.left-boxy-button.yellow::before {
+    filter: drop-shadow(0 -2px 0 rgba(255, 255, 255, 0.35));
+}
+.left-boxy-button.yellow .arrow {
+    filter: drop-shadow(-2px 0 0 rgba(255, 255, 255, 0.4));
+}
+.left-boxy-button:active {
+    box-shadow: none;
+    transform: translate3d(-6px, 6px, 0);
+}
+.left-boxy-button .arrow {
+    filter: drop-shadow(-2px 0 0 rgba(0, 0, 0, 0.2));
+}
+.left-boxy-button::after {
+    filter: drop-shadow(-2px 0 0 rgba(0, 0, 0, 0.2));
+}
+.left-boxy-button::after, .left-boxy-button::before {
+    position: absolute;
+    content: " ";
+    right: 15px;
+    top: 14px;
+    width: 4px;
+    height: 18px;
+    background: white;
+    transform: rotate(-45deg);
+    display: block;
+    z-index: 2;
+}
+.left-boxy-button::before {
+    height: 14px;
+    top: 26px;
+    right: 16px;
+    z-index: 3;
+    transform: rotate(-137deg);
+    filter: drop-shadow(0 -2px 0 rgba(0, 0, 0, 0.15));
+}
 @keyframes spinAround {
     from {
         transform: rotate(0deg);
