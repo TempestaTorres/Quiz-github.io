@@ -28,3 +28,5 @@ function madJunSaysOops(sibling, oops) {
         sibling.nextElementSibling.classList.toggle("is-active");
     }, 1000);
 }
+
+export {checkUser,getLocationParam,madJunSaysOops};

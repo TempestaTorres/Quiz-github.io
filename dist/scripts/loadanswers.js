@@ -97,8 +97,6 @@ function deployAnswer(question, questionNumber,rightAnswerId, userResult) {
     }
 
     answerItem.appendChild(answerList);
-
-
     this.appendChild(answerItem);
 }
 function isAnswerValid(questionId, rightAnswerId, userResult) {

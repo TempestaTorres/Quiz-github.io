@@ -1,34 +1,11 @@
+import {QuizTest} from "../../src/modules/quiztest.js";
+
 document.addEventListener("DOMContentLoaded", function(e) {
 
     "use strict";
 
-    (function() {
+    const quizTest = new QuizTest();
 
-        if (!checkUser()) {
-            location.href = "index.html";
-        }
+    quizTest.Init();
 
-        let testId = parseInt(getLocationParam("id"), 10);
-
-        if (!isNaN(testId)) {
-
-            function processRequest(e) {
-
-                if (this.readyState === 4 && this.status === 200) {
-
-                    // time to party!!!
-                    loadTest(JSON.parse(this.responseText));
-
-                }
-                else {
-                    location.href = "index.html";
-                }
-
-            }
-            makeHttpGetRequest(`https://testologia.ru/get-quiz?id=${testId}`, processRequest);
-        }
-        else {
-            location.href = "index.html";
-        }
-    })();
 });
