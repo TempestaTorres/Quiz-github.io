@@ -82,7 +82,7 @@ export class Select {
 
         let img = document.createElement('img');
         img.classList.add('svg');
-        img.src = './src/assets/img/arrow-right-thin.svg';
+        img.src = './assets/img/arrow-right-thin.svg';
         img.loading = 'lazy';
         img.alt = "";
 
