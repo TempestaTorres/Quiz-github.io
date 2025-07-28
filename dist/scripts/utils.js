@@ -2,13 +2,24 @@ function checkUser() {
 
     "use strict";
 
-    let url = new URL(window.location.href);
+    let params = queryUrlparams();
 
-    let firstName = url.searchParams.get('firstname');
-    let lastName = url.searchParams.get('lastname');
-    let email = url.searchParams.get('email');
+    return !!params.firstname || !!params.lastName || !!params.email;
+}
+function queryUrlparams() {
 
-    return !!firstName || !!lastName || !!email;
+    const queryParams = document.location.hash.split('+').join(' ');
+
+    let params = {},
+        tokens,
+        regExp = /[?&]([^=]+)=([^&]*)/g;
+
+    while (tokens = regExp.exec(queryParams)) {
+
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
 }
 function getLocationParam(paramName) {
 
@@ -29,4 +40,4 @@ function madJunSaysOops(sibling, oops) {
     }, 1000);
 }
 
-export {checkUser,getLocationParam,madJunSaysOops};
+export {checkUser,getLocationParam,madJunSaysOops, queryUrlparams};

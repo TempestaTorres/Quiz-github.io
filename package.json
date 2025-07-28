@@ -1,0 +1,24 @@
+{
+  "name": "itlogia-project-quiz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -o"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TempestaTorres/Quiz-github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TempestaTorres/Quiz-github.io/issues"
+  },
+  "homepage": "https://github.com/TempestaTorres/Quiz-github.io#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

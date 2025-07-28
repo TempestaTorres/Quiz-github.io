@@ -1,10 +1,9 @@
 export class FormValidation {
 
-    constructor(form, callbackHandler) {
+    constructor(form) {
         this.emailRegExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
         this.nameRegExp = /^[A-Z][a-zA-Z]+\s*$/;
         this.valid = false;
-        this.callbackHandler = callbackHandler;
         this.form = document.querySelector(form);
 
         if(this.form) {
@@ -55,7 +54,9 @@ export class FormValidation {
 
             }
 
-            this.callbackHandler.call(this.form, user);
+            this.form.reset();
+
+            location.href = "#/select?firstname=" + user.firstname + "&lastname=" + user.lastname + "&email=" + user.email;
         }
     }
 

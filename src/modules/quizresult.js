@@ -1,31 +1,30 @@
+import {queryUrlparams} from "../../dist/scripts/utils.js";
 
 export class QuizResult {
 
     constructor() {
 
-        let params = new URLSearchParams(document.location.search);
+        let params = queryUrlparams();
 
-        this.id = params.get("id");
-        this.score = params.get("score");
-        this.total = params.get("total");
+        this.id = params.id;
+        this.score = params.score;
+        this.total = params.total;
         this.data = [];
 
         let storageItem = sessionStorage.getItem("madJunUser");
 
         if (storageItem) {
             this.data = JSON.parse(storageItem);
+
+            document.querySelector(".user-answers-number").textContent = `${this.score}/${this.total}`;
+
+            document.querySelector(".back-to-selection").addEventListener("click", this.#backToSelection.bind(this));
+
+            document.querySelector(".view-answers").addEventListener("click", this.#viewAnswers.bind(this));
         }
         else {
-            location.href = "index.html";
+            location.href = "#/";
         }
-    }
-    Init() {
-
-        document.querySelector(".user-answers-number").textContent = `${this.score}/${this.total}`;
-
-        document.querySelector(".back-to-selection").addEventListener("click", this.#backToSelection.bind(this));
-
-        document.querySelector(".view-answers").addEventListener("click", this.#viewAnswers.bind(this));
     }
 
     #backToSelection(e) {
@@ -33,12 +32,12 @@ export class QuizResult {
         e.preventDefault();
 
         sessionStorage.removeItem("madJunUser");
-        location.href = "select.html?firstname=" + this.data.name + "&lastname=" + this.data.lastName + "&email=" + this.data.email;
+        location.href = "#/select?firstname=" + this.data.name + "&lastname=" + this.data.lastName + "&email=" + this.data.email;
     }
 
     #viewAnswers(e) {
         e.preventDefault();
 
-        location.href = "view.html?score=" + this.score + "&total=" + this.total + "&id=" + this.id;
+        location.href = "#/view?score=" + this.score + "&total=" + this.total + "&id=" + this.id;
     }
 }

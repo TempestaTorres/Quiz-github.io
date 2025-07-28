@@ -1,22 +1,27 @@
+import {queryUrlparams} from "../../dist/scripts/utils.js";
+
 export class ViewAnswer {
 
     constructor() {
 
-        let params = new URLSearchParams(document.location.search);
+        let params = queryUrlparams();
 
-        this.id = parseInt(params.get("id"), 10);
-        this.score = params.get("score");
-        this.total = params.get("total");
+        this.id = parseInt(params.id, 10);
+        this.score = params.score;
+        this.total = params.total;
         this.testResponse = null;
         this.answersResponse = null;
         this.user = [];
 
         if (isNaN(this.id)) {
-            location.href = "index.html";
+            location.href = "#/";
+        }
+        else {
+            this.#init();
         }
     }
 
-    Init() {
+    #init() {
 
         let xhr = new XMLHttpRequest();
 
@@ -55,7 +60,7 @@ export class ViewAnswer {
     #backToResult(e) {
         e.preventDefault();
 
-        location.href = `result.html?id=${this.id}` + "&score=" + `${this.score}` + "&total=" + `${this.total}`;
+        location.href = `#/result?id=${this.id}` + "&score=" + `${this.score}` + "&total=" + `${this.total}`;
     }
 
     #loadAnswers() {
@@ -73,7 +78,7 @@ export class ViewAnswer {
             this.#deployAnswers();
         }
         else {
-            location.href = "index.html";
+            location.href = "#/";
         }
     }
 
@@ -131,11 +136,10 @@ export class ViewAnswer {
                     answerOption.classList.add("valid");
                     answerIcon.classList.add("valid");
                 }
-                else {
-                    answerOption.classList.add("invalid");
-                    answerIcon.classList.add("invalid");
-                }
-
+            }
+            else if (this.#isUserAnswer(question.id, question.answers[i].id)) {
+                answerOption.classList.add("invalid");
+                answerIcon.classList.add("invalid");
             }
 
             answerOption.appendChild(answerIcon);
@@ -146,6 +150,21 @@ export class ViewAnswer {
 
         answerItem.appendChild(answerList);
         parentNode.appendChild(answerItem);
+    }
+
+    #isUserAnswer(questionId, answerId) {
+
+        let result = false;
+
+        for (let i = 0; i < this.user.results.length; i++) {
+
+            if (this.user.results[i].questionId === questionId && this.user.results[i].chosenAnswerId === answerId) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
     }
 
     #isAnswerValid(questionId, rightAnswerId) {

@@ -1,16 +1,19 @@
 
-import {checkUser} from "../../dist/scripts/utils.js";
+import {checkUser, queryUrlparams} from "../../dist/scripts/utils.js";
 
 export class Select {
 
     constructor() {
 
         if (!checkUser()) {
-            location.href = "index.html";
+            location.href = "#/";
+        }
+        else {
+            this.#init();
         }
     }
 
-    Init() {
+    #init() {
 
         let xhr = new XMLHttpRequest();
 
@@ -24,7 +27,7 @@ export class Select {
 
         }
         else {
-            location.href = "index.html";
+            location.href = "#/";
         }
     }
 
@@ -34,8 +37,9 @@ export class Select {
             e.preventDefault();
 
             let dataId = e.target.parentElement.dataset.nodeData;
+            let params = queryUrlparams();
 
-            location.href = "test.html" + location.search + "&id=" + dataId;
+            location.href = "#/test?firstname=" + params.firstname + "&lastname=" + params.lastname + "&email=" + params.email + "&id=" + dataId;
 
             e.stopPropagation();
         }

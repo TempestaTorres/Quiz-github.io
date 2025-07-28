@@ -1,4 +1,4 @@
-import {checkUser, getLocationParam, madJunSaysOops} from "../../dist/scripts/utils.js";
+import {checkUser, madJunSaysOops, queryUrlparams} from "../../dist/scripts/utils.js";
 
 export class QuizTest {
 
@@ -7,13 +7,14 @@ export class QuizTest {
         this.test = null;
 
         if (!checkUser()) {
-            location.href = "index.html";
+            location.href = "#/";
         }
 
-        this.testId = parseInt(getLocationParam("id"), 10);
+        let params = queryUrlparams();
+        this.testId = params.id;
 
         if (isNaN(this.testId)) {
-            location.href = "index.html";
+            location.href = "#/";
         }
 
         this.userResult = [];
@@ -22,9 +23,10 @@ export class QuizTest {
             seconds: 60,
         }
         this.timerCounter = document.querySelector(".timer-counter");
+        this.#init();
     }
 
-    Init() {
+    #init() {
 
         let xhr = new XMLHttpRequest();
 
@@ -44,11 +46,11 @@ export class QuizTest {
                 this.#testDeployPartyProcess();
             }
             catch (e) {
-                location.href = "index.html";
+                location.href = "#/";
             }
         }
         else {
-            location.href = "index.html";
+            location.href = "#/";
         }
     }
 
@@ -185,16 +187,12 @@ export class QuizTest {
 
     #testCheckMadJunResult() {
 
-        let params = new URLSearchParams(document.location.search);
-        let firstname = params.get("firstname");
-        let lastname = params.get("lastname");
-        let email = params.get("email");
-
+        let params = queryUrlparams();
         let body = JSON.stringify({
 
-            name: firstname,
-            lastName: lastname,
-            email: email,
+            name: params.firstname,
+            lastName: params.lastname,
+            email: params.email,
             results: this.userResult,
         });
 
@@ -209,17 +207,17 @@ export class QuizTest {
 
                 let response = JSON.parse(xhr.responseText);
                 // time to party!!!
-                location.href = `result.html?id=${this.test.id}` + "&score=" + response.score + "&total=" + response.total;
+                location.href = `#/result?id=${this.test.id}` + "&score=" + response.score + "&total=" + response.total;
                 sessionStorage.setItem("madJunUser", JSON.stringify({
-                    name: firstname,
-                    lastName: lastname,
-                    email: email,
+                    name: params.firstname,
+                    lastName: params.lastname,
+                    email: params.email,
                     results: this.userResult,
                 }));
             }
             catch (e) {
                 console.error(e);
-                location.href = "index.html";
+                location.href = "#/";
             }
         }
     }

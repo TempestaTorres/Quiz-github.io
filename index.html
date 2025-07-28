@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
+    <title id="page-title">Quiz</title>
     <link rel="stylesheet" href="./dist/css/app.css">
+    <script type="module" src="./src/app.js"></script>
 </head>
 <body>
     <div class="app-container">
@@ -23,30 +24,8 @@
                 </div>
             </div>
         </header>
-        <main>
-            <!--Hero-->
-            <div class="container">
-                <!--Hero Grid-->
-                <div class="hero-grid grid grid-cols-2 gap-24">
-                    <!--Hero Card-->
-                    <div class="hero-card-wrapper flex flex-col gap-60">
-                        <!--Hero Text-->
-                        <div class="hero-card-text flex flex-col gap-40">
-                            <h1 class="h1">Проверь свои знания JavaScript вместе с <span class="text-accent">АйтилогияQuiz</span>!</h1>
-                            <p class="text-size-medium line-length-ssm">Мы поможем подготовиться к контрольному заданию или тесту по JavaScript!</p>
-                        </div>
-                        <!--Hero Footer-->
-                        <div class="hero-footer">
-                            <a class="left-boxy-button blue" href="register.html" aria-label="Start test" role="button">Начать тест</a>
-                        </div>
-                    </div>
-                    <!--Hero Image-->
-                    <div class="hero-main-img">
-                        <img src="./dist/assets/img/Main.png" alt="Main image" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </main>
+
+        <div class="main-content-wrapper"></div>
         <!--Footer-->
         <footer class="footer">
             <div class="flex-row-container">
