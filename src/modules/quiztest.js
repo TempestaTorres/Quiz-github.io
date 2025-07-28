@@ -1,4 +1,4 @@
-import {checkUser, madJunSaysOops, queryUrlparams} from "../../dist/scripts/utils.js";
+import {checkUser, madJunSaysOops, queryUrlparams} from "../scripts/utils.js";
 
 export class QuizTest {
 

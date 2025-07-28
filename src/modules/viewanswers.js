@@ -1,4 +1,4 @@
-import {queryUrlparams} from "../../dist/scripts/utils.js";
+import {queryUrlparams} from "../scripts/utils.js";
 
 export class ViewAnswer {
 

@@ -1,5 +1,5 @@
 
-import {checkUser, queryUrlparams} from "../../dist/scripts/utils.js";
+import {checkUser, queryUrlparams} from "../scripts/utils.js";
 
 export class Select {
 
@@ -75,14 +75,14 @@ export class Select {
 
         let testButton = document.createElement('a');
         testButton.classList.add("arrow-button");
-        testButton.href = `test${id}.html`;
+        testButton.href = `#`;
         testButton.role = 'button';
         testButton.dataset.nodeType = 'test-button';
         testButton.dataset.nodeData = `${id}`;
 
         let img = document.createElement('img');
         img.classList.add('svg');
-        img.src = './dist/assets/img/arrow-right-thin.svg';
+        img.src = './src/assets/img/arrow-right-thin.svg';
         img.loading = 'lazy';
         img.alt = "";
 

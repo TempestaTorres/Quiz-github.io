@@ -1,13 +1,17 @@
 import {Router} from './router.js';
 
-const newRouter = new Router();
+(function () {
 
-window.addEventListener('DOMContentLoaded', routerHandler);
-window.addEventListener('popstate', routerHandler);
+    const newRouter = new Router();
 
-function routerHandler() {
+    window.addEventListener('DOMContentLoaded', routerHandler);
+    window.addEventListener('popstate', routerHandler);
 
-    "use strict";
+    function routerHandler() {
 
-    newRouter.openRoute();
-}
+        "use strict";
+
+        newRouter.openRoute();
+    }
+
+})();
