@@ -2,9 +2,10 @@
   "name": "itlogia-project-quiz",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/app.js",
   "scripts": {
-    "start": "http-server -o"
+    "start": "http-server -o",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -13,12 +14,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/TempestaTorres/Quiz-github.io/issues"
   },
   "homepage": "https://github.com/TempestaTorres/Quiz-github.io#readme",
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "webpack": "^5.100.2",
+    "webpack-cli": "^6.0.1"
   }
 }
