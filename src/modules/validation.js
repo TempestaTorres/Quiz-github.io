@@ -3,6 +3,7 @@ export class FormValidation {
     constructor(form) {
         this.emailRegExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
         this.nameRegExp = /^[A-Z][a-zA-Z]+\s*$/;
+        this.passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
         this.valid = false;
         this.form = document.querySelector(form);
 
@@ -36,6 +37,7 @@ export class FormValidation {
                 firstname: "",
                 lastname: "",
                 email: "",
+                password: "",
             }
 
             for (let i = 0; i < this.inputs.length; i++) {
@@ -51,12 +53,18 @@ export class FormValidation {
                 if (input.type === 'email') {
                     user.email = input.value.trim();
                 }
+                if (input.type === 'password') {
+                    user.password = input.value.trim();
+                }
 
             }
 
             this.form.reset();
 
-            location.href = "#/select?firstname=" + user.firstname + "&lastname=" + user.lastname + "&email=" + user.email;
+            if (user.firstname.length > 0) {
+                location.href = "#/select?firstname=" + user.firstname + "&lastname=" + user.lastname + "&email=" + user.email;
+            }
+
         }
     }
 
@@ -71,6 +79,9 @@ export class FormValidation {
                 break;
             case 'email':
                 this.#handleInputUserEmail(event.target);
+                break;
+            case 'password':
+                this.#handleInputUserPassword(event.target);
                 break;
         }
     }
@@ -114,6 +125,27 @@ export class FormValidation {
 
     #isValidEmail(target) {
         return target.value.length > 6 && this.emailRegExp.test(target.value);
+    }
+
+    #handleInputUserPassword(target) {
+        this.valid = this.#isValidPassword(target);
+
+        if (this.valid) {
+            target.nextElementSibling.nextElementSibling.textContent = '';
+            target.setCustomValidity('');
+        }
+        else {
+            if (target.value.length < 6) {
+                target.nextElementSibling.nextElementSibling.textContent = 'Minimum 6 characters long';
+            }
+            else {
+                target.nextElementSibling.nextElementSibling.textContent = 'Password must have uppercase and lowercase letters, digits and at least one special symbol';
+                target.setCustomValidity('invalid');
+            }
+        }
+    }
+    #isValidPassword(target) {
+        return target.value.length > 5 && this.passwordRegExp.test(target.value);
     }
 
     #handleCheckbox(e) {

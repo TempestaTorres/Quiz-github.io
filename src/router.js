@@ -16,9 +16,18 @@ export class Router {
                 }
             },
             {
-                route: '#/register',
+                route: '#/signup',
                 pageTitle: 'Sign Up',
-                template: './templates/register.html',
+                template: './templates/signup.html',
+                load: () => {
+
+                    new FormValidation('#form');
+                }
+            },
+            {
+                route: '#/login',
+                pageTitle: 'Login',
+                template: './templates/login.html',
                 load: () => {
 
                     new FormValidation('#form');
