@@ -91,7 +91,15 @@ body {
     font-weight: var(--c-weight-semibold);
     font-size: 1.125rem;
 }
-
+.user-account-wrapper[data-account-state="login"] {
+    display: block;
+}
+.user-account-wrapper[data-account-state="logout"] {
+    display: none;
+}
+.user-account {
+    gap: 5px;
+}
 .app-button {
     font-family: var(--font-secondary), sans-serif;
     font-weight: var(--c-weight-normal);

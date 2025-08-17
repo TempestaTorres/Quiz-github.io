@@ -39,5 +39,18 @@ function madJunSaysOops(sibling, oops) {
         sibling.nextElementSibling.classList.toggle("is-active");
     }, 1000);
 }
+function setUserAccountState(bLogin) {
+    "use strict";
 
-export {checkUser,getLocationParam,madJunSaysOops, queryUrlparams};
+    const userAccount = document.querySelector(".user-account-wrapper");
+    if (userAccount) {
+        if (bLogin) {
+            userAccount.dataset.accountState = "login";
+        }
+        else {
+            userAccount.dataset.accountState = "logout";
+        }
+    }
+}
+
+export {checkUser,getLocationParam,madJunSaysOops, queryUrlparams, setUserAccountState};

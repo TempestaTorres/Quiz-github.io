@@ -3,6 +3,7 @@ import {Select} from "./modules/selection.js";
 import {QuizTest} from "./modules/quiztest.js";
 import {QuizResult} from "./modules/quizresult.js";
 import {ViewAnswer} from "./modules/viewanswers.js";
+import {setUserAccountState} from "./scripts/utils.js";
 
 export class Router {
     constructor() {
@@ -13,6 +14,7 @@ export class Router {
                 pageTitle: 'Itlogia Quiz',
                 template: './templates/index.html',
                 load: () => {
+                    setUserAccountState(false);
                 }
             },
             {
@@ -21,6 +23,7 @@ export class Router {
                 template: './templates/signup.html',
                 load: () => {
 
+                    setUserAccountState(false);
                     new FormValidation('#form');
                 }
             },
@@ -30,6 +33,7 @@ export class Router {
                 template: './templates/login.html',
                 load: () => {
 
+                    setUserAccountState(false);
                     new FormValidation('#form');
                 }
             },
@@ -39,6 +43,7 @@ export class Router {
                 template: './templates/select.html',
                 load: () => {
 
+                    setUserAccountState(true);
                     new Select();
                 }
             },
@@ -48,6 +53,7 @@ export class Router {
                 template: './templates/test.html',
                 load: () => {
 
+                    setUserAccountState(true);
                     new QuizTest();
                 }
             },
@@ -57,6 +63,7 @@ export class Router {
                 template: './templates/result.html',
                 load: () => {
 
+                    setUserAccountState(true);
                     new QuizResult();
                 }
             },
@@ -66,6 +73,7 @@ export class Router {
                 template: './templates/view.html',
                 load: () => {
 
+                    setUserAccountState(true);
                     new ViewAnswer();
                 }
             },

@@ -1964,6 +1964,9 @@ textarea:valid:required {
   border-width: 0;
 }
 /* Font */
+.text-underline {
+  text-decoration: underline;
+}
 .text-center {
   text-align: center;
 }
