@@ -62,6 +62,11 @@ export class FormValidation {
             this.form.reset();
 
             if (user.firstname.length > 0) {
+                //Signup
+                location.href = "#/login";
+            }
+            else {
+                //Login
                 location.href = "#/select?firstname=" + user.firstname + "&lastname=" + user.lastname + "&email=" + user.email;
             }
 

@@ -1536,6 +1536,9 @@ textarea:valid:required {
 .pb-24 {
   padding-bottom: 1.5rem;
 }
+.pb-30 {
+  padding-bottom: 1.875rem;
+}
 .pb-40 {
   padding-bottom: 2.5rem;
 }
@@ -2345,7 +2348,7 @@ textarea:valid:required {
   padding: 16px 50px 16px 10px;
   text-shadow: -2px 2px 0 rgba(0, 0, 0, 0.2);
   font-weight: bold;
-  margin: 10px;
+  /*margin: 10px;*/
   transition: all 0.2s linear;
   transform: translateZ(0);
 }
