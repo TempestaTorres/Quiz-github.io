@@ -1,3 +1,4 @@
+
 function checkUser() {
 
     "use strict";
@@ -37,20 +38,7 @@ function madJunSaysOops(sibling, oops) {
 
     setTimeout(() => {
         sibling.nextElementSibling.classList.toggle("is-active");
-    }, 1000);
-}
-function setUserAccountState(bLogin) {
-    "use strict";
-
-    const userAccount = document.querySelector(".user-account-wrapper");
-    if (userAccount) {
-        if (bLogin) {
-            userAccount.dataset.accountState = "login";
-        }
-        else {
-            userAccount.dataset.accountState = "logout";
-        }
-    }
+    }, 2000);
 }
 
-export {checkUser,getLocationParam,madJunSaysOops, queryUrlparams, setUserAccountState};
+export {checkUser,getLocationParam,madJunSaysOops, queryUrlparams};

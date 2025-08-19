@@ -1,14 +1,25 @@
-import {checkUser, madJunSaysOops, queryUrlparams} from "../scripts/utils.js";
+import {madJunSaysOops, queryUrlparams} from "../scripts/utils.js";
+import config from "../scripts/config.js";
+import {Auth} from "../scripts/auth.js";
+import {HttpRequest} from "../scripts/validation.utils.js";
 
 export class QuizTest {
 
     constructor() {
 
+        this.refreshRequestUrl = config.host + "/refresh";
+        this.accessToken = Auth.getAccessToken();
+        this.refreshToken = Auth.getRefreshToken();
+        this.header = {
+            name: "x-access-token",
+            value: this.accessToken,
+        };
+        this.refBody = {
+            refreshToken: this.refreshToken,
+        };
+        this.errMessage = "Oops, something went wrong!";
         this.test = null;
-
-        if (!checkUser()) {
-            location.href = "#/";
-        }
+        this.userResult = [];
 
         let params = queryUrlparams();
         this.testId = params.id;
@@ -16,44 +27,74 @@ export class QuizTest {
         if (isNaN(this.testId)) {
             location.href = "#/";
         }
-
-        this.userResult = [];
-        this.timer = {
-            timerId: 0,
-            seconds: 60,
-        }
-        this.timerCounter = document.querySelector(".timer-counter");
-        this.#init();
-    }
-
-    #init() {
-
-        let xhr = new XMLHttpRequest();
-
-        xhr.open("GET", `https://testologia.ru/get-quiz?id=${this.testId}`, false);
-        xhr.send();
-
-        if (xhr.readyState === 4 && xhr.status === 200) {
-
-            // time to party!!!
-
-            try {
-                this.test = JSON.parse(xhr.responseText);
-
-                this.#testSetCaption();
-                this.#testDeployProgressBar();
-                this.#testDeployQuestion(0);
-                this.#testDeployPartyProcess();
-            }
-            catch (e) {
-                location.href = "#/";
-            }
-        }
         else {
-            location.href = "#/";
+            this.requestUrl = config.host + "/tests/" + params.id;
+            this.resultRequestUrl = config.host + "/tests/" + params.id + "/pass";
+            this.timer = {
+                timerId: 0,
+                seconds: 60,
+            }
+            this.timerCounter = document.querySelector(".timer-counter");
+            this.#init();
         }
     }
 
+    async #init() {
+
+        try {
+            this.test = await HttpRequest.sendRequest(this.requestUrl,"GET",null, this.header);
+
+            if (this.test) {
+                // time to party!!!
+                this.#timeToParty();
+            }
+            else {
+                throw new TypeError(this.errMessage);
+            }
+        }
+        catch (e) {
+
+            if (e.message === "jwt expired") {
+
+                try {
+
+                    const result = await HttpRequest.sendRequest(this.refreshRequestUrl,"POST", this.refBody);
+
+                    if (result.error || !result.accessToken) {
+                        throw new TypeError(this.errMessage);
+                    }
+                    this.header.value = result.accessToken;
+                    this.accessToken = result.accessToken;
+                    this.refreshToken = result.refreshToken;
+
+                    Auth.clearAccessTokens();
+                    Auth.setTokens(this.accessToken, this.refreshToken);
+
+                    this.test = await HttpRequest.sendRequest(this.requestUrl,"GET",null, this.header);
+
+                    if (this.test) {
+                        // time to party!!!
+                        this.#timeToParty();
+                    }
+                    else {
+                        throw new TypeError(this.errMessage);
+                    }
+
+                }
+                catch (e) {
+                    console.error(e.message);
+                    location.href = "#/";
+                }
+            }
+        }
+    }
+
+    #timeToParty() {
+        this.#testSetCaption();
+        this.#testDeployProgressBar();
+        this.#testDeployQuestion(0);
+        this.#testDeployPartyProcess();
+    }
     #testSetCaption() {
 
         let testTitle = document.querySelector(".test-caption");
@@ -185,43 +226,62 @@ export class QuizTest {
         }
     }
 
-    #testCheckMadJunResult() {
+    async #testCheckMadJunResult() {
 
-        let params = queryUrlparams();
-        let body = JSON.stringify({
-
-            name: params.firstname,
-            lastName: params.lastname,
-            email: params.email,
+        const body = {
+            userId: Auth.userInfo.userId,
             results: this.userResult,
-        });
+        }
+        try {
 
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", `https://testologia.ru/pass-quiz?id=${this.test.id}`, false);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
-        xhr.send(body);
+            let response = await HttpRequest.sendRequest(this.resultRequestUrl,"POST", body, this.header);
+            this.#redirect(response);
+        }
+        catch (e) {
 
-        if (xhr.readyState === 4 && xhr.status === 200) {
+            if (e.message === "jwt expired") {
 
-            try {
+                try {
 
-                let response = JSON.parse(xhr.responseText);
-                // time to party!!!
-                location.href = `#/result?id=${this.test.id}` + "&score=" + response.score + "&total=" + response.total;
-                sessionStorage.setItem("madJunUser", JSON.stringify({
-                    name: params.firstname,
-                    lastName: params.lastname,
-                    email: params.email,
-                    results: this.userResult,
-                }));
+                    const r = await HttpRequest.sendRequest(this.refreshRequestUrl,"POST",this.refBody);
+
+                    if (r.error || !r.accessToken) {
+                        throw new TypeError(this.errMessage);
+                    }
+                    this.header.value = r.accessToken;
+                    this.accessToken = r.accessToken;
+                    this.refreshToken = r.refreshToken;
+
+                    Auth.clearAccessTokens();
+                    Auth.setTokens(this.accessToken, this.refreshToken);
+
+                    let response2 = await HttpRequest.sendRequest(this.resultRequestUrl,"POST", body, this.header);
+                    this.#redirect(response2);
+
+                }
+                catch (e) {
+                    console.error(e.message);
+                    location.href = "#/";
+                }
             }
-            catch (e) {
-                console.error(e);
+            else {
+                console.error(e.message);
                 location.href = "#/";
             }
         }
     }
 
+    #redirect(response) {
+
+        console.log(response);
+        sessionStorage.setItem("madJunUser", JSON.stringify({
+            score: response.score,
+            total: response.total,
+            results: this.userResult,
+            testId: this.testId,
+        }));
+        location.href = "#/result";
+    }
     #nextButtonHandler(e) {
 
         e.preventDefault();

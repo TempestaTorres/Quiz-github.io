@@ -49,11 +49,11 @@ export class ViewAnswer {
             }
             catch (e) {
                 console.error(e);
-                location.href = "index.html";
+                location.href = "#/";
             }
         }
         else {
-            location.href = "index.html";
+            location.href = "#/";
         }
     }
 

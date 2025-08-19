@@ -1,3 +1,8 @@
+import {madJunSaysOops} from "../scripts/utils.js";
+import {HttpRequest} from "../scripts/validation.utils.js";
+import {Auth} from "../scripts/auth.js";
+import config from "../scripts/config.js";
+
 export class FormValidation {
 
     constructor(form) {
@@ -6,6 +11,8 @@ export class FormValidation {
         this.passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
         this.valid = false;
         this.form = document.querySelector(form);
+        this.loginUrl = config.host + "/login";
+        this.signupUrl = config.host + "/signup";
 
         if(this.form) {
             this.inputs = this.form.querySelectorAll('input');
@@ -63,16 +70,81 @@ export class FormValidation {
 
             if (user.firstname.length > 0) {
                 //Signup
-                location.href = "#/login";
+                this.#requestSignup(user);
             }
             else {
                 //Login
-                location.href = "#/select?firstname=" + user.firstname + "&lastname=" + user.lastname + "&email=" + user.email;
+                this.#requestLogin(user);
             }
 
         }
     }
 
+    async #requestSignup(user) {
+
+        try {
+
+            const body = {
+                name: user.firstname,
+                lastName: user.lastname,
+                email: user.email,
+                password: user.password,
+            };
+
+            const result = await HttpRequest.sendRequest(this.signupUrl, "POST", body);
+
+            if (result.error || !result.user) {
+                throw new TypeError(result.message);
+            }
+            //Time to Party
+            location.href = "#/login";
+        }
+        catch (error) {
+            this.#setErrorMessage(error.message);
+        }
+    }
+    async #requestLogin(user) {
+
+        try {
+
+            const body = {
+                email: user.email,
+                password: user.password,
+            };
+
+            const result = await HttpRequest.sendRequest(this.loginUrl, "POST", body);
+
+            if (result.error || !result.accessToken || !result.refreshToken || !result.fullName) {
+
+                throw new TypeError(result.message);
+            }
+            //Time to Party
+            Auth.setTokens(result.accessToken, result.refreshToken);
+
+            Auth.userInfo.name = result.fullName.split(" ")[0];
+            Auth.userInfo.lastName = result.fullName.split(" ")[1];
+            Auth.userInfo.email = user.email;
+            Auth.userInfo.userId = result.userId;
+
+            localStorage.setItem("madJunUserInfo", JSON.stringify({
+                name: Auth.userInfo.name,
+                lastName: Auth.userInfo.lastName,
+                email: Auth.userInfo.email,
+                userId: Auth.userInfo.userId,
+            }));
+
+            location.href = "#/select";
+
+        }
+        catch (error) {
+            this.#setErrorMessage(error.message);
+        }
+
+    }
+    #setErrorMessage(message) {
+        const btn = document.querySelector("button[type='submit']");
+        madJunSaysOops(btn, message);
+    }
     #handleInput(event){
 
         switch (event.target.name) {

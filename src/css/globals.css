@@ -251,3 +251,6 @@ body {
 .left-boxy-button.blue.lg {
     width: 257px;
 }
+.snackbar.snackbar-request {
+    width: 257px;
+}

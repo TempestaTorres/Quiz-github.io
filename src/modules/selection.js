@@ -1,33 +1,71 @@
-
-import {checkUser, queryUrlparams} from "../scripts/utils.js";
+import {Auth} from "../scripts/auth.js";
+import {HttpRequest} from "../scripts/validation.utils.js";
+import config from "../scripts/config.js";
 
 export class Select {
 
     constructor() {
 
-        if (!checkUser()) {
-            location.href = "#/";
+        this.requestUrl = config.host + "/tests";
+        this.refreshRequestUrl = config.host + "/refresh";
+        this.accessToken = Auth.getAccessToken();
+        this.refreshToken = Auth.getRefreshToken();
+        this.header = {
+            name: "x-access-token",
+            value: this.accessToken,
         }
-        else {
-            this.#init();
-        }
+        this.errMessage = "Oops, something went wrong!";
+
+        sessionStorage.removeItem("madJunUser");
+
+        this.#init();
     }
 
-    #init() {
+    async #init() {
 
-        let xhr = new XMLHttpRequest();
-
-        xhr.open("GET", "https://testologia.ru/get-quizzes", false);
-        xhr.send();
-
-        if (xhr.readyState === 4 && xhr.status === 200) {
+        try {
+            const result = await HttpRequest.sendRequest(this.requestUrl,"GET",null, this.header);
 
             // time to party!!!
-            this.#loadTests(JSON.parse(xhr.responseText));
-
+            this.#loadTests(result);
         }
-        else {
-            location.href = "#/";
+        catch (e) {
+            console.error(e.message);
+
+            if (e.message === "jwt expired") {
+
+                const body = {
+                    refreshToken: this.refreshToken,
+                };
+
+                try {
+                    const r = await HttpRequest.sendRequest(this.refreshRequestUrl,"POST",body);
+
+                    if (r.error || !r.accessToken) {
+                        throw new TypeError(this.errMessage);
+                    }
+                    this.header.value = r.accessToken;
+                    this.accessToken = r.accessToken;
+                    this.refreshToken = r.refreshToken;
+
+                    Auth.clearAccessTokens();
+                    Auth.setTokens(this.accessToken, this.refreshToken);
+
+                    const r2 = await HttpRequest.sendRequest(this.requestUrl,"GET",null, this.header);
+
+                    // time to party!!!
+                    this.#loadTests(r2);
+
+                }
+                catch (e) {
+                    console.error(e.message);
+                    location.href = "#/";
+                }
+            }
+            else {
+                console.error(e.message);
+                location.href = "#/";
+            }
         }
     }
 
@@ -37,9 +75,8 @@ export class Select {
             e.preventDefault();
 
             let dataId = e.target.parentElement.dataset.nodeData;
-            let params = queryUrlparams();
 
-            location.href = "#/test?firstname=" + params.firstname + "&lastname=" + params.lastname + "&email=" + params.email + "&id=" + dataId;
+            location.href = "#/test?id=" + dataId;
 
             e.stopPropagation();
         }
@@ -56,7 +93,7 @@ export class Select {
                 this.#loadTest(parentNode, node);
             }
 
-            parentNode.addEventListener('click', this.#eventHandler);
+            parentNode.addEventListener('click', this.#eventHandler.bind(this));
         }
     }
 

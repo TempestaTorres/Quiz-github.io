@@ -162,11 +162,15 @@ textarea:valid:required {
   padding: 0 5px 0 5px;
 }
 .input[type='text']:focus-within,
-.input[type='email']:focus-within {
+.input[type='email']:focus-within,
+.input[type='tel']:focus-within,
+.input[type='password']:focus-within {
   border-left: 5px solid var(--base-color-system--info-blue);
 }
 .input[type='text']:invalid:required:focus-within,
-.input[type='email']:invalid:required:focus-within {
+.input[type='email']:invalid:required:focus-within,
+.input[type='tel']:invalid:required:focus-within,
+.input[type='password']:invalid:required:focus-within {
   border-left: 5px solid var(--c-color-danger);
 }
 /*=============== Radio Button =====================*/
