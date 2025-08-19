@@ -17,29 +17,32 @@ export class Select {
         this.errMessage = "Oops, something went wrong!";
 
         sessionStorage.removeItem("madJunUser");
+        let mJunInfo = localStorage.getItem("madJunUserInfo");
+
+        if (mJunInfo) {
+            let user = JSON.parse(mJunInfo);
+            this.requestTestResults = config.host + "/tests/results?userId=" + user.userId;
+        }
 
         this.#init();
     }
 
     async #init() {
 
-        try {
-            const result = await HttpRequest.sendRequest(this.requestUrl,"GET",null, this.header);
+        let result = null;
 
-            // time to party!!!
-            this.#loadTests(result);
+        try {
+            result = await HttpRequest.sendRequest(this.requestUrl,"GET",null, this.header);
         }
         catch (e) {
             console.error(e.message);
 
             if (e.message === "jwt expired") {
 
-                const body = {
-                    refreshToken: this.refreshToken,
-                };
-
                 try {
-                    const r = await HttpRequest.sendRequest(this.refreshRequestUrl,"POST",body);
+                    const r = await HttpRequest.sendRequest(this.refreshRequestUrl,"POST", {
+                        refreshToken: this.refreshToken,
+                    });
 
                     if (r.error || !r.accessToken) {
                         throw new TypeError(this.errMessage);
@@ -51,10 +54,7 @@ export class Select {
                     Auth.clearAccessTokens();
                     Auth.setTokens(this.accessToken, this.refreshToken);
 
-                    const r2 = await HttpRequest.sendRequest(this.requestUrl,"GET",null, this.header);
-
-                    // time to party!!!
-                    this.#loadTests(r2);
+                    result = await HttpRequest.sendRequest(this.requestUrl,"GET",null, this.header);
 
                 }
                 catch (e) {
@@ -67,18 +67,30 @@ export class Select {
                 location.href = "#/";
             }
         }
-    }
 
+        try {
+            this.testResults = await HttpRequest.sendRequest(this.requestTestResults,"GET",null, this.header);
+        }
+        catch (e) {
+            console.error(e.message);
+        }
+
+        // time to party!!!
+        this.#loadTests(result);
+    }
     #eventHandler(e) {
 
-        if (e.target.parentElement.dataset.nodeType === "test-button") {
-            e.preventDefault();
+        e.preventDefault();
 
-            let dataId = e.target.parentElement.dataset.nodeData;
+        if (e.target.dataset.nodeType === "test-button") {
+
+            let dataId = e.target.dataset.nodeData;
 
             location.href = "#/test?id=" + dataId;
 
-            e.stopPropagation();
+        }
+        else {
+            console.log(e.target);
         }
     }
 
@@ -100,6 +112,22 @@ export class Select {
     #loadTest(parent, child) {
 
         let {id, name} = child;
+        let testScore = {
+            passed: "no",
+            score: "0/0",
+        };
+
+        if (this.testResults && this.testResults.length > 0) {
+
+            for (let i = 0; i < this.testResults.length; ++i) {
+
+                if (this.testResults[i].testId === id) {
+                    testScore.passed = "yes";
+                    testScore.score = `${this.testResults[i].score}/${this.testResults[i].total}`;
+                    break;
+                }
+            }
+        }
 
         let parentChildNode = document.createElement('div');
         parentChildNode.classList.add('select-wrapper');
@@ -116,6 +144,7 @@ export class Select {
         testButton.role = 'button';
         testButton.dataset.nodeType = 'test-button';
         testButton.dataset.nodeData = `${id}`;
+        testButton.dataset.passed = testScore.passed;
 
         let img = document.createElement('img');
         img.classList.add('svg');
@@ -124,6 +153,21 @@ export class Select {
         img.alt = "";
 
         testButton.appendChild(img);
+
+        let userTestResult = document.createElement("div");
+        userTestResult.classList.add('user-test-result', 'text-accent', 'text-size-tiny');
+
+
+        let resultDiv = document.createElement("div");
+        resultDiv.textContent = "Результат";
+
+        let scoreDiv = document.createElement("div");
+        scoreDiv.textContent = testScore.score;
+
+        userTestResult.appendChild(resultDiv);
+        userTestResult.appendChild(scoreDiv);
+
+        testButton.appendChild(userTestResult);
 
         parentChildNode.appendChild(testName);
         parentChildNode.appendChild(testButton);

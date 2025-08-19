@@ -183,11 +183,25 @@ body {
     border-bottom: 1px solid #c1bbbb;
 }
 .arrow-button {
+    position: relative;
     width: 27px;
     height: 13px;
     margin-right: 2.5rem;
     opacity: 0;
     transition: opacity .3s linear;
+}
+.arrow-button > img.svg {
+    z-index: -1;
+}
+.user-test-result {
+    position: absolute;
+    left: -1.125rem;
+    padding: 5px;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--base-color-system--info-blue);
+    color: var(--base-color-system--info-blue);
+    z-index: -1;
 }
 .select-wrapper:hover p {
     color: var(--base-color-system--info-blue);
@@ -195,6 +209,18 @@ body {
 }
 .select-wrapper:hover .arrow-button {
     opacity: 1;
+}
+.arrow-button[data-passed="no"] > img.svg {
+    display: block;
+}
+.arrow-button[data-passed="no"] > .user-test-result {
+    display: none;
+}
+.arrow-button[data-passed="yes"] > img.svg {
+    display: none;
+}
+.arrow-button[data-passed="yes"] > .user-test-result {
+    display: flex;
 }
 .select-wrapper:hover {
     border-left: 5px solid var(--base-color-system--info-blue);
