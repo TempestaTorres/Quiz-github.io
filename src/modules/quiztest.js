@@ -576,6 +576,7 @@ export class QuizTest {
         }
         else {
             this.#testShowSnackbarError();
+            setTimeout(() => { location.href = '#/select'; }, 3000);
         }
     }
 
