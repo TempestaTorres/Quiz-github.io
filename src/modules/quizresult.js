@@ -30,7 +30,6 @@ export class QuizResult {
 
     #viewAnswers(e) {
         e.preventDefault();
-
         //location.href = "#/view?score=" + this.score + "&total=" + this.total + "&id=" + this.id;
         location.href = "#/view";
     }

@@ -6,7 +6,6 @@ import {HttpRequest} from "../scripts/validation.utils.js";
 export class QuizTest {
 
     constructor() {
-
         this.refreshRequestUrl = config.host + "/refresh";
         this.accessToken = Auth.getAccessToken();
         this.refreshToken = Auth.getRefreshToken();
@@ -210,7 +209,6 @@ export class QuizTest {
         this.timer.timerId = setInterval(this.#timerCounter.bind(this), 1000);
 
     }
-
     #timerCounter() {
 
         if (this.timer.seconds < 10) {

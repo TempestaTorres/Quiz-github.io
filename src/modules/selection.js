@@ -15,14 +15,8 @@ export class Select {
             value: this.accessToken,
         }
         this.errMessage = "Oops, something went wrong!";
-
+        this.requestTestResults = config.host + "/tests/results?userId=" + Auth.userInfo.userId;
         sessionStorage.removeItem("madJunUser");
-        let mJunInfo = localStorage.getItem("madJunUserInfo");
-
-        if (mJunInfo) {
-            let user = JSON.parse(mJunInfo);
-            this.requestTestResults = config.host + "/tests/results?userId=" + user.userId;
-        }
 
         this.#init();
     }
@@ -156,7 +150,6 @@ export class Select {
 
         let userTestResult = document.createElement("div");
         userTestResult.classList.add('user-test-result', 'text-accent', 'text-size-tiny');
-
 
         let resultDiv = document.createElement("div");
         resultDiv.textContent = "Результат";

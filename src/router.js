@@ -7,7 +7,8 @@ import {Auth} from "./scripts/auth.js";
 
 export class Router {
     constructor() {
-
+        this.logo = null;
+        this.logout = null;
         this.routes = [
             {
                 route: '#/',
@@ -76,6 +77,24 @@ export class Router {
         ];
     }
 
+    controller(route) {
+
+        if (this.logo === null) {
+            this.logo = document.querySelector("a.logo");
+        }
+        if (this.logout === null) {
+            this.logout = document.querySelector("#logout-link");
+        }
+        switch (route.route) {
+            case '#/test':
+                this.logo.addEventListener('click', this.#preventDefault, false);
+                this.logout.addEventListener('click', this.#preventDefault, false);
+                break;
+            default:
+                this.logo.removeEventListener('click', this.#preventDefault, false);
+                this.logout.removeEventListener('click', this.#preventDefault, false);
+        }
+    }
     async openRoute() {
 
         const route = this.routes.find(routeItem => {
@@ -92,7 +111,11 @@ export class Router {
 
             document.querySelector("#page-title").textContent = route.pageTitle;
 
+            this.controller(route);
             route.load();
         }
+    }
+    #preventDefault(e) {
+        e.preventDefault();
     }
 }

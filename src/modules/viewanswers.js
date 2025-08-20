@@ -1,23 +1,21 @@
-import {queryUrlparams} from "../scripts/utils.js";
 
 export class ViewAnswer {
 
     constructor() {
 
-        let params = queryUrlparams();
-
-        this.id = parseInt(params.id, 10);
-        this.score = params.score;
-        this.total = params.total;
         this.testResponse = null;
         this.answersResponse = null;
         this.user = [];
+        this.userData = [];
 
-        if (isNaN(this.id)) {
-            location.href = "#/";
+        let storage = sessionStorage.getItem("madJunUser");
+
+        if (storage) {
+            this.userData = JSON.parse(storage);
+            this.#init();
         }
         else {
-            this.#init();
+            location.href = "#/";
         }
     }
 
@@ -59,8 +57,7 @@ export class ViewAnswer {
 
     #backToResult(e) {
         e.preventDefault();
-
-        location.href = `#/result?id=${this.id}` + "&score=" + `${this.score}` + "&total=" + `${this.total}`;
+        location.href = "#/result";
     }
 
     #loadAnswers() {
