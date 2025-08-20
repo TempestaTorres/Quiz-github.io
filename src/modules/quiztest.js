@@ -85,6 +85,10 @@ export class QuizTest {
                     location.href = "#/";
                 }
             }
+            else {
+                console.error(e.message);
+                location.href = "#/";
+            }
         }
     }
 
@@ -271,7 +275,6 @@ export class QuizTest {
 
     #redirect(response) {
 
-        console.log(response);
         sessionStorage.setItem("madJunUser", JSON.stringify({
             score: response.score,
             total: response.total,

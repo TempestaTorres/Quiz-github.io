@@ -1,17 +1,32 @@
+import {Auth} from "../scripts/auth.js";
+import config from "../scripts/config.js";
+import {HttpRequest} from "../scripts/validation.utils";
 
 export class ViewAnswer {
 
     constructor() {
 
+        this.refreshRequestUrl = config.host + "/refresh";
+        this.accessToken = Auth.getAccessToken();
+        this.refreshToken = Auth.getRefreshToken();
+        this.header = {
+            name: "x-access-token",
+            value: this.accessToken,
+        };
+        this.refBody = {
+            refreshToken: this.refreshToken,
+        };
+        this.errMessage = "Oops, something went wrong!";
         this.testResponse = null;
-        this.answersResponse = null;
-        this.user = [];
+        this.test = null;
         this.userData = [];
 
         let storage = sessionStorage.getItem("madJunUser");
 
         if (storage) {
             this.userData = JSON.parse(storage);
+            this.resultRequestUrl = config.host + "/tests/" + this.userData.testId + "/result/details?userId=" + Auth.userInfo.userId;
+            //console.log(this.userData.results);
             this.#init();
         }
         else {
@@ -19,40 +34,57 @@ export class ViewAnswer {
         }
     }
 
-    #init() {
+    async #init() {
 
-        let xhr = new XMLHttpRequest();
-
-        xhr.open("GET", `https://testologia.ru/get-quiz?id=${this.id}`, false);
-        xhr.send();
-
-        if (xhr.readyState === 4 && xhr.status === 200) {
 
             try {
-                this.testResponse = JSON.parse(xhr.responseText);
+                this.testResponse = await HttpRequest.sendRequest(this.resultRequestUrl,"GET",null, this.header);
 
-                let xhr2 = new XMLHttpRequest();
-
-                xhr2.open("GET", `https://testologia.ru/get-quiz-right?id=${this.id}`, false);
-                xhr2.send();
-
-                if (xhr2.readyState === 4 && xhr2.status === 200) {
-
-                    this.answersResponse = JSON.parse(xhr2.responseText);
-
+                if (this.testResponse) {
+                    this.test = this.testResponse.test;
                     this.#loadAnswers();
-                    document.querySelector('.back-to-result').addEventListener('click', this.#backToResult.bind(this));
                 }
-
+                else {
+                    throw new TypeError(this.errMessage);
+                }
             }
             catch (e) {
-                console.error(e);
-                location.href = "#/";
+                if (e.message === "jwt expired") {
+
+                    try {
+
+                        const result = await HttpRequest.sendRequest(this.refreshRequestUrl,"POST", this.refBody);
+
+                        if (result.error || !result.accessToken) {
+                            throw new TypeError(this.errMessage);
+                        }
+                        this.header.value = result.accessToken;
+                        this.accessToken = result.accessToken;
+                        this.refreshToken = result.refreshToken;
+
+                        Auth.clearAccessTokens();
+                        Auth.setTokens(this.accessToken, this.refreshToken);
+
+                        this.testResponse = await HttpRequest.sendRequest(this.resultRequestUrl,"GET",null, this.header);
+
+                        if (this.testResponse) {
+                            this.test = this.testResponse.test;
+                            this.#loadAnswers();
+                        }
+                        else {
+                            throw new TypeError(this.errMessage);
+                        }
+                    }
+                    catch (e) {
+                        console.error(e.message);
+                        location.href = "#/";
+                    }
+                }
+                else {
+                    console.log(e.message);
+                    location.href = "#/";
+                }
             }
-        }
-        else {
-            location.href = "#/";
-        }
     }
 
     #backToResult(e) {
@@ -62,34 +94,24 @@ export class ViewAnswer {
 
     #loadAnswers() {
 
-        document.querySelector('.view-test-name').textContent = this.testResponse.name;
+        document.querySelector('.view-test-name').textContent = this.test.name;
+        document.querySelector('.mad-jun-user-info').textContent = Auth.userInfo.name + " " + Auth.userInfo.lastName + ", " + Auth.userInfo.email;
+        document.querySelector('.back-to-result').addEventListener('click', this.#backToResult.bind(this));
 
-        let storage = sessionStorage.getItem("madJunUser");
-
-        if (storage) {
-
-            this.user = JSON.parse(storage);
-
-            document.querySelector('.mad-jun-user-info').textContent = this.user.name + " " + this.user.lastName + ", " + this.user.email;
-
-            this.#deployAnswers();
-        }
-        else {
-            location.href = "#/";
-        }
+        this.#deployAnswers();
     }
 
     #deployAnswers() {
 
         let parentNode = document.querySelector('.answers-wrapper');
 
-        for (let i = 0; i < this.testResponse.questions.length; i++) {
+        for (let i = 0; i < this.test.questions.length; i++) {
 
-            this.#deployAnswer(parentNode, this.testResponse.questions[i], i + 1, this.answersResponse[i]);
+            this.#deployAnswer(parentNode, this.test.questions[i], i + 1);
         }
     }
 
-    #deployAnswer(parentNode, question, questionNumber,rightAnswerId) {
+    #deployAnswer(parentNode, question, questionNumber) {
 
         let answerItem = document.createElement("div");
         answerItem.classList.add("view-answer-item");
@@ -126,17 +148,19 @@ export class ViewAnswer {
             text.classList.add("text-size-medium");
             text.textContent = question.answers[i].answer;
 
-            if (question.answers[i].id === rightAnswerId) {
+            let userAnswerId = this.#getUserAnswerId(question.id);
 
-                if (this.#isAnswerValid(question.id, rightAnswerId)) {
+            if (userAnswerId === question.answers[i].id) {
+
+                if (question.answers[i].correct) {
 
                     answerOption.classList.add("valid");
                     answerIcon.classList.add("valid");
                 }
-            }
-            else if (this.#isUserAnswer(question.id, question.answers[i].id)) {
-                answerOption.classList.add("invalid");
-                answerIcon.classList.add("invalid");
+                else {
+                    answerOption.classList.add("invalid");
+                    answerIcon.classList.add("invalid");
+                }
             }
 
             answerOption.appendChild(answerIcon);
@@ -148,34 +172,11 @@ export class ViewAnswer {
         answerItem.appendChild(answerList);
         parentNode.appendChild(answerItem);
     }
-
-    #isUserAnswer(questionId, answerId) {
-
-        let result = false;
-
-        for (let i = 0; i < this.user.results.length; i++) {
-
-            if (this.user.results[i].questionId === questionId && this.user.results[i].chosenAnswerId === answerId) {
-                result = true;
-                break;
-            }
+    #getUserAnswerId(questionId) {
+        let answer = this.userData.results.find(element => element.questionId === questionId);
+        if (answer) {
+            return answer.chosenAnswerId;
         }
-
-        return result;
-    }
-
-    #isAnswerValid(questionId, rightAnswerId) {
-
-        let result = false;
-
-        for (let i = 0; i < this.user.results.length; i++) {
-
-            if (this.user.results[i].questionId === questionId && this.user.results[i].chosenAnswerId === rightAnswerId) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
+        return null;
     }
 }

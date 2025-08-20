@@ -83,9 +83,6 @@ export class Select {
             location.href = "#/test?id=" + dataId;
 
         }
-        else {
-            console.log(e.target);
-        }
     }
 
     #loadTests(dataTests) {
